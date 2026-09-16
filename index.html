@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Tengah Semester - Informatika Kelas IX</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        /* Kop Surat Style */
+        .kop-surat {
+            text-align: center;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .kop-surat h3 {
+            margin: 2px 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .kop-surat h2 {
+            margin: 2px 0;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .kop-surat p {
+            margin: 2px 0;
+            font-size: 12px;
+        }
+        .header-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-title h4 {
+            margin: 5px 0;
+            text-transform: uppercase;
+        }
+        /* Sticky Timer Bar */
+        .timer-bar {
+            position: sticky;
+            top: 0;
+            background: #1a73e8;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .timer-bar .time {
+            font-size: 18px;
+            background: #d93025;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        /* Identity Form */
+        .identity-box {
+            background: #e8f0fe;
+            border: 1px solid #aecbfa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label {
+            width: 130px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* Instructions */
+        .instructions {
+            background: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        /* Question Styles */
+        .bacaan-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+            padding: 12px 15px;
+            margin: 25px 0 15px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            border-radius: 0 4px 4px 0;
+        }
+        .bacaan-box h5 {
+            margin: 0 0 8px 0;
+            color: #1a73e8;
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+        .question-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options li {
+            margin-bottom: 8px;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options label:hover {
+            background: #f1f3f4;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        /* Submit Button */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #34a853;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+        .btn-submit:hover {
+            background: #2d8e47;
+        }
+        /* Result Display */
+        #result-box {
+            display: none;
+            background: #e6f4ea;
+            border: 1px solid #34a853;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Kop Surat -->
+    <div class="kop-surat">
+        <h3>PEMERINTAH KABUPATEN TEMANGGUNG</h3>
+        <h2>SMP NEGERI 2 NGADIREJO</h2>
+        <p>Desa Dlimoyo, Kecamatan Ngadirejo, Kabupaten Temanggung 56255</p>
+        <p>Telp (0293) 5921008 | NPSN: 20321463 | Laman: smpn2ngadirejo.sch.id | Pos elektronik: smpn2ngd@gmail.com</p>
+    </div>
+
+    <!-- Judul Ujian -->
+    <div class="header-title">
+        <h4>ASESMEN TENGAH SEMESTER</h4>
+        <h4>TAHUN AJARAN 2026/2027</h4>
+    </div>
+
+    <!-- Information Bar Sticky -->
+    <div class="timer-bar">
+        <div>
+            <span id="current-date">--</span> | <span id="current-clock">--:--:--</span>
+        </div>
+        <div>Sisa Waktu: <span id="timer" class="time">40:00</span></div>
+    </div>
+
+    <!-- Form Identitas -->
+    <div class="identity-box">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" placeholder="Masukkan nama lengkap..." required>
+        </div>
+        <div class="form-group">
+            <label for="kelas">Fase / Kelas:</label>
+            <select id="kelas">
+                <option value="D / IX">D / IX</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="no_ujian">Nomor Ujian:</label>
+            <input type="text" id="no_ujian" placeholder="Masukkan nomor ujian..." required>
+        </div>
+    </div>
+
+    <!-- Petunjuk Umum -->
+    <div class="instructions">
+        <strong>PETUNJUK UMUM:</strong>
+        <ol style="margin: 5px 0 0 0; padding-left: 20px;">
+            <li>Isi nama lengkap, kelas, dan nomor ujian pada kolom yang telah disediakan.</li>
+            <li>Soal dan pilihan jawaban diacak secara otomatis oleh sistem.</li>
+            <li>Pilihlah salah satu jawaban yang Anda anggap paling benar.</li>
+            <li>Perhatikan hitung mundur waktu (40 Menit). Jawaban akan terkumpul otomatis saat waktu habis.</li>
+        </ol>
+    </div>
+
+    <!-- Tempat Soal Di-render -->
+    <form id="quiz-form">
+        <div id="questions-container"></div>
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Selesaikan & Kirim Jawaban</button>
+    </form>
+
+    <!-- Hasil Nilai -->
+    <div id="result-box">
+        <h2>Hasil Asesmen</h2>
+        <p id="result-student-info"></p>
+        <h1 id="result-score" style="font-size: 48px; color: #1a73e8; margin: 10px 0;">0</h1>
+        <p id="result-detail"></p>
+    </div>
+</div>
+
+<script>
+    // Data Soal & Bacaan
+    const rawData = [
+        {
+            bacaanId: "bacaan1",
+            bacaanTitle: "BACAAN 1 (SISTEM KOMPUTER)",
+            bacaanText: "Dafa sedang belajar tentang sistem komputer di sekolah. Guru menjelaskan bahwa sistem komputer terdiri dari hardware, software, dan brainware. Saat praktik, komputer di laboratorium tidak bisa menyala meskipun tombol power sudah ditekan. Setelah diperiksa, ternyata kabel listrik tidak terhubung dengan baik. Setelah komputer menyala, Dafa membuka beberapa aplikasi sekaligus sehingga komputer menjadi sangat lambat. Ia kemudian menutup beberapa aplikasi agar komputer kembali normal.",
+            questions: [
+                {
+                    id: 1,
+                    q: "Masalah komputer tidak bisa menyala pada bacaan disebabkan oleh…",
+                    options: ["Kerusakan software", "Kesalahan pengguna", "Masalah hardware", "Virus komputer"],
+                    answer: 2
+                },
+                {
+                    id: 2,
+                    q: "Tindakan Dafa menutup beberapa aplikasi bertujuan untuk…",
+                    options: ["Menambah kapasitas penyimpanan", "Mengurangi beban kerja komputer", "Menghemat listrik", "Menginstal program baru"],
+                    answer: 1
+                },
+                {
+                    id: 3,
+                    q: "Komponen yang paling terdampak saat banyak aplikasi berjalan bersamaan adalah…",
+                    options: ["Monitor dan speaker", "CPU dan RAM", "Keyboard dan mouse", "Printer"],
+                    answer: 1
+                },
+                {
+                    id: 4,
+                    q: "Yang termasuk brainware pada bacaan tersebut adalah…",
+                    options: ["Sistem operasi", "Dafa", "Kabel listrik", "Aplikasi"],
+                    answer: 1
+                },
+                {
+                    id: 5,
+                    q: "Berdasarkan bacaan, solusi terbaik agar komputer tidak lambat adalah…",
+                    options: ["Menambah gambar di layar", "Menutup aplikasi yang tidak diperlukan", "Mematikan monitor", "Mengganti wallpaper"],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            bacaanId: "bacaan2",
+            bacaanTitle: "BACAAN 2 (MICROSOFT OFFICE)",
+            bacaanText: "Selly mendapatkan tugas membuat laporan dan presentasi. Ia menggunakan Microsoft Word untuk mengetik laporan, tetapi hasilnya kurang rapi karena belum menggunakan fitur pengaturan paragraf (alignment). Selly juga menambahkan tabel untuk menyusun data. Untuk presentasi, ia menggunakan Microsoft PowerPoint dengan menambahkan banyak gambar dan animasi. Namun, ukuran file menjadi sangat besar sehingga sulit dikirim melalui email. Guru menyarankan agar Siti mengompres gambar dan tidak menggunakan terlalu banyak animasi.",
+            questions: [
+                {
+                    id: 6,
+                    q: "Agar teks pada Microsoft Word menjadi rapi, fitur yang seharusnya digunakan adalah…",
+                    options: ["Insert", "Alignment (Paragraph)", "Animation", "Slide Show"],
+                    answer: 1
+                },
+                {
+                    id: 7,
+                    q: "Fungsi tabel pada Microsoft Word sesuai bacaan adalah…",
+                    options: ["Menambahkan gambar", "Menyusun data agar rapi", "Membuat animasi", "Mengatur slide"],
+                    answer: 1
+                },
+                {
+                    id: 8,
+                    q: "Penyebab ukuran file PowerPoint menjadi besar adalah…",
+                    options: ["Terlalu sedikit teks", "Terlalu banyak gambar dan animasi", "Terlalu sedikit slide", "Tidak menggunakan warna"],
+                    answer: 1
+                },
+                {
+                    id: 9,
+                    q: "Solusi yang tepat untuk mengatasi ukuran file yang besar adalah…",
+                    options: ["Menambah slide", "Mengurangi teks", "Mengompres gambar", "Menambah animasi"],
+                    answer: 2
+                },
+                {
+                    id: 10,
+                    q: "Jika Siti tidak memahami cara menggunakan fitur Word dan PowerPoint, hal tersebut termasuk masalah…",
+                    options: ["Hardware", "Software", "Brainware", "Jaringan"],
+                    answer: 2
+                }
+            ]
+        },
+        {
+            bacaanId: "bacaan3",
+            bacaanTitle: "BACAAN 3 (GAME LABIRIN SCRATCH)",
+            bacaanText: "Dina membuat game labirin menggunakan Scratch. Dalam game tersebut, pemain mengendalikan sprite kucing untuk berjalan menuju bendera sebagai tujuan akhir. Dina menggunakan blok “when green flag clicked” untuk memulai permainan dan blok “move 10 steps” untuk menggerakkan sprite. Namun, sprite sering menembus dinding karena tidak ada pengaturan kondisi. Dina juga belum menggunakan skor, sehingga pemain tidak mendapatkan poin saat mencapai tujuan.",
+            questions: [
+                {
+                    id: 11,
+                    q: "Fungsi blok “when green flag clicked” pada program Dina adalah…",
+                    options: ["Menghentikan program", "Memulai program", "Menghapus sprite", "Menambah skor"],
+                    answer: 1
+                },
+                {
+                    id: 12,
+                    q: "Masalah sprite menembus dinding terjadi karena…",
+                    options: ["Tidak ada suara", "Tidak ada kondisi (if)", "Tidak ada event", "Tidak ada background"],
+                    answer: 1
+                },
+                {
+                    id: 13,
+                    q: "Untuk memperbaiki gerakan agar tidak menembus dinding, blok yang tepat adalah…",
+                    options: ["Say", "If then", "Broadcast", "Hide"],
+                    answer: 1
+                },
+                {
+                    id: 14,
+                    q: "Jika Dina ingin mengulang gerakan sprite terus-menerus, blok yang tepat adalah…",
+                    options: ["If", "Repeat / Forever", "Stop", "Change costume"],
+                    answer: 1
+                },
+                {
+                    id: 15,
+                    q: "Tidak adanya skor dalam game menyebabkan…",
+                    options: ["Game lebih ringan", "Tidak ada sistem penilaian pemain", "Sprite tidak bergerak", "Game error total"],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            bacaanId: "bacaan4",
+            bacaanTitle: "BACAAN 4 (GAME KUIS SCRATCH)",
+            bacaanText: "Rafi membuat game kuis menggunakan Scratch. Pemain harus menjawab pertanyaan dengan memilih jawaban benar. Rafi menggunakan variabel “skor” untuk menghitung nilai pemain. Namun, skor tidak bertambah meskipun jawaban benar. Setelah diperiksa, ternyata Rafi lupa menambahkan blok perubahan variabel. Selain itu, saat jawaban salah, game tetap berjalan tanpa memberi peringatan.",
+            questions: [
+                {
+                    id: 16,
+                    q: "Fungsi variabel skor dalam game Rafi adalah…",
+                    options: ["Mengatur suara", "Menyimpan nilai pemain", "Mengubah background", "Menggerakkan sprite"],
+                    answer: 1
+                },
+                {
+                    id: 17,
+                    q: "Masalah skor tidak bertambah disebabkan oleh…",
+                    options: ["Tidak ada sprite", "Tidak ada blok change variable", "Tidak ada event", "Tidak ada suara"],
+                    answer: 1
+                },
+                {
+                    id: 18,
+                    q: "Blok yang tepat untuk menambah skor adalah…",
+                    options: ["Move 10 steps", "Change score by 1", "Say Hello", "Stop all"],
+                    answer: 1
+                },
+                {
+                    id: 19,
+                    q: "Agar game memberi peringatan saat jawaban salah, blok yang tepat adalah…",
+                    options: ["If then else", "Repeat", "Forever", "Broadcast"],
+                    answer: 0
+                },
+                {
+                    id: 20,
+                    q: "Jika game tetap berjalan meskipun jawaban salah, maka logika program tersebut…",
+                    options: ["Sudah benar", "Perlu ditambah kondisi kontrol", "Tidak perlu diperbaiki", "Sudah sempurna"],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            bacaanId: "bacaan5",
+            bacaanTitle: "BACAAN 5 (GAME INTERAKTIF PICTOBLOX)",
+            bacaanText: "Dina membuat game edukasi menggunakan PictoBlox. Dalam game tersebut, karakter kucing akan bergerak ketika tombol bendera hijau ditekan. Dina menggunakan blok “forever” agar karakter terus bergerak. Namun, karakter sering menabrak dinding karena tidak ada pengecekan kondisi. Dina juga menambahkan suara, tetapi suara tidak muncul karena blok suara tidak dihubungkan dengan event yang tepat.",
+            questions: [
+                {
+                    id: 21,
+                    q: "Fungsi blok “when green flag clicked” adalah…",
+                    options: ["Menghentikan program", "Memulai program", "Menghapus sprite", "Menambah suara"],
+                    answer: 1
+                },
+                {
+                    id: 22,
+                    q: "Masalah karakter menabrak dinding terjadi karena…",
+                    options: ["Tidak ada sprite", "Tidak ada kondisi (if)", "Tidak ada suara", "Tidak ada background"],
+                    answer: 1
+                },
+                {
+                    id: 23,
+                    q: "Blok yang tepat untuk menghindari tabrakan adalah…",
+                    options: ["Say", "If then", "Move", "Hide"],
+                    answer: 1
+                },
+                {
+                    id: 24,
+                    q: "Penggunaan blok “forever” bertujuan untuk…",
+                    options: ["Menghapus program", "Mengulang perintah terus-menerus", "Menghentikan sprite", "Mengubah latar"],
+                    answer: 1
+                },
+                {
+                    id: 25,
+                    q: "Suara tidak muncul kemungkinan karena…",
+                    options: ["Komputer rusak", "Blok suara tidak terhubung dengan event", "Sprite terlalu besar", "Background salah"],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            bacaanId: "bacaan6",
+            bacaanTitle: "BACAAN 6 (PROYEK SMART ROBOT PICTOBLOX)",
+            bacaanText: "Rafi membuat proyek robot sederhana menggunakan PictoBlox yang terhubung dengan Arduino. Robot harus berjalan maju dan berhenti saat sensor mendeteksi objek. Namun, robot terus berjalan tanpa berhenti. Setelah diperiksa, ternyata blok kondisi sensor tidak dipasang dengan benar. Rafi juga mencoba menambahkan variabel “jarak”, tetapi nilainya tidak berubah saat robot bergerak mendekati objek.",
+            questions: [
+                {
+                    id: 26,
+                    q: "Fungsi sensor dalam proyek Rafi adalah…",
+                    options: ["Menggerakkan suara", "Mendeteksi objek", "Mengubah warna", "Menambah sprite"],
+                    answer: 1
+                },
+                {
+                    id: 27,
+                    q: "Penyebab robot tidak berhenti adalah…",
+                    options: ["Tidak ada baterai", "Blok sensor tidak digunakan dengan benar", "Tidak ada sprite", "Tidak ada suara"],
+                    answer: 1
+                },
+                {
+                    id: 28,
+                    q: "Blok yang tepat untuk menghentikan robot saat ada objek adalah…",
+                    options: ["Move forward", "If sensor detect then stop", "Say hello", "Change costume"],
+                    answer: 1
+                },
+                {
+                    id: 29,
+                    q: "Variabel “jarak” tidak berubah karena…",
+                    options: ["Tidak ada event pembaruan data sensor", "Komputer lambat", "Sprite tidak bergerak", "Warna salah"],
+                    answer: 0
+                },
+                {
+                    id: 30,
+                    q: "Solusi terbaik untuk memperbaiki program robot adalah…",
+                    options: ["Menambah suara", "Memperbaiki logika sensor dan kondisi", "Mengganti background", "Menghapus variabel"],
+                    answer: 1
+                }
+            ]
+        }
+    ];
+
+    // Array penampung soal teracak
+    let processedQuestions = [];
+
+    // Algoritma Fisher-Yates Shuffle
+    function shuffle(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Inisialisasi Real-Time Clock
+    function updateClock() {
+        const now = new Date();
+        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        const dayName = days[now.getDay()];
+        const dayNum = now.getDate();
+        const monthName = months[now.getMonth()];
+        const year = now.getFullYear();
+
+        document.getElementById('current-date').innerText = `${dayName}, ${dayNum} ${monthName} ${year}`;
+        
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('current-clock').innerText = `${hours}:${minutes}:${seconds} WIB`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Inisialisasi Countdown Timer 40 Menit
+    let timeInSeconds = 40 * 60;
+    const timerElement = document.getElementById('timer');
+    
+    const countdownTimer = setInterval(() => {
+        let minutes = Math.floor(timeInSeconds / 60);
+        let seconds = timeInSeconds % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        timerElement.innerText = `${minutes}:${seconds}`;
+
+        if (timeInSeconds <= 0) {
+            clearInterval(countdownTimer);
+            alert("Waktu ujian telah habis! Jawaban Anda akan langsung dikumpulkan.");
+            submitQuiz();
+        } else {
+            timeInSeconds--;
+        }
+    }, 1000);
+
+    // Persiapan dan Pengacakan Soal
+    function prepareQuestions() {
+        let allQuestions = [];
+
+        rawData.forEach(group => {
+            group.questions.forEach(q => {
+                // Map pilihan jawaban dengan index awal untuk mengecek kunci
+                let optionsObj = q.options.map((opt, index) => {
+                    return { text: opt, isCorrect: index === q.answer };
+                });
+                
+                // Acak Pilihan Jawaban
+                optionsObj = shuffle(optionsObj);
+
+                allQuestions.push({
+                    id: q.id,
+                    qText: q.q,
+                    bacaanId: group.bacaanId,
+                    bacaanTitle: group.bacaanTitle,
+                    bacaanText: group.bacaanText,
+                    options: optionsObj
+                });
+            });
+        });
+
+        // Acak Urutan Soal
+        processedQuestions = shuffle(allQuestions);
+        renderQuestions();
+    }
+
+    // Menampilkan Soal ke HTML
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = "";
+
+        const optionPrefixes = ["A", "B", "C", "D"];
+
+        processedQuestions.forEach((q, index) => {
+            const qNum = index + 1;
+            let html = "";
+
+            // Render Bacaan jika ada
+            html += `
+                <div class="bacaan-box">
+                    <h5>${q.bacaanTitle}</h5>
+                    <p>${q.bacaanText}</p>
+                </div>
+            `;
+
+            // Render Soal & Pilihan
+            html += `
+                <div class="question-card" id="q-card-${index}">
+                    <div class="question-text">${qNum}. ${q.qText}</div>
+                    <ul class="options">
+            `;
+
+            q.options.forEach((opt, optIdx) => {
+                html += `
+                    <li>
+                        <label>
+                            <input type="radio" name="question_${index}" value="${opt.isCorrect ? "1" : "0"}">
+                            <b>${optionPrefixes[optIdx]}.</b>&nbsp; ${opt.text}
+                        </label>
+                    </li>
+                `;
+            });
+
+            html += `
+                    </ul>
+                </div>
+            `;
+
+            container.innerHTML += html;
+        });
+    }
+
+    // Fungsi Pengumpulan Jawaban & Evaluasi Nilai
+    function submitQuiz() {
+        const nama = document.getElementById('nama').value.trim();
+        const noUjian = document.getElementById('no_ujian').value.trim();
+
+        if (!nama || !noUjian) {
+            alert("Silakan lengkapi Nama Lengkap dan Nomor Ujian terlebih dahulu!");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
+        let score = 0;
+        let answeredCount = 0;
+
+        processedQuestions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question_${index}"]:checked`);
+            if (selected) {
+                answeredCount++;
+                if (selected.value === "1") {
+                    score++;
+                }
+            }
+        });
+
+        const finalScore = Math.round((score / processedQuestions.length) * 100);
+
+        // Hentikan Timer
+        clearInterval(countdownTimer);
+
+        // Tampilkan Hasil
+        document.getElementById('quiz-form').style.display = 'none';
+        const resultBox = document.getElementById('result-box');
+        resultBox.style.display = 'block';
+
+        document.getElementById('result-student-info').innerText = `Nama: ${nama} | No. Ujian: ${noUjian} | Kelas: ${document.getElementById('kelas').value}`;
+        document.getElementById('result-score').innerText = finalScore;
+        document.getElementById('result-detail').innerText = `Anda menjawab benar ${score} dari ${processedQuestions.length} soal.`;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Jalankan penataan soal saat pertama kali halaman dimuat
+    window.onload = prepareQuestions;
+</script>
+
+</body>
+</html>
